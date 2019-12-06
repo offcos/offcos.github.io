@@ -2,7 +2,8 @@
 menu:
   Home: /
   Archives: /archives
-rss: /atom.xml
+#rss: /atom.xml
+  About: /about
 
 # Content
 excerpt_link: Read More
@@ -11,9 +12,9 @@ fancybox: true
 # Sidebar
 sidebar: right
 widgets:
-- category
+#- category
 - tag
-- tagcloud
+#- tagcloud
 - archive
 - recent_posts
 
