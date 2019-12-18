@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Codestuff</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Codestuff">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;index.html">
+<meta property="og:site_name" content="Codestuff">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="zhoudj">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Codestuff</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-hexo如何跨设备同步" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/12/07/hexo%E5%A6%82%E4%BD%95%E8%B7%A8%E8%AE%BE%E5%A4%87%E5%90%8C%E6%AD%A5/" class="article-date">
+  <time datetime="2019-12-06T16:02:12.000Z" itemprop="datePublished">2019-12-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/07/hexo%E5%A6%82%E4%BD%95%E8%B7%A8%E8%AE%BE%E5%A4%87%E5%90%8C%E6%AD%A5/">hexo如何跨设备同步</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h2><h3 id="创建分支（在github上操作）"><a href="#创建分支（在github上操作）" class="headerlink" title="创建分支（在github上操作）"></a>创建分支（在github上操作）</h3><p>首先在Github上面创建一个分支命名为hexo，hexo是从master拉取，所以分支的文件和master一样。<br>初始化分支（PC1上面操作）<br>在已经部署好Hexo环境的PC1上的安装Hexo的根目录下拉取hexo分支，步骤如下：</p>
+<p>git clone 仓库地址，将仓库文件拉取到本地，生成的文件名为 username.github.io；</p>
+<p>进入username.github.io文件夹，除了.git文件夹以外，其他文件全部删除；</p>
+<p>命令 git add . 将修改提交至暂存区；</p>
+<p>命令 git commit -m “提交说明”，提交本次修改；</p>
+<p>命令 git push origin hexo 将本次修改推送到远端hexo；</p>
+<p>将刚才未删除的.git文件夹拷贝至Hexo根目录，删除username.github.io文件夹，此时本地的Hexo目录已与github上面的hexo文件夹关联了，而且默认的.gitignore已经配置了忽略规则，所以已经可以将根目录下的文件同步上去，还是依次调用add、commit、push三个命令将当前的文件推送至远程的hexo分支。</p>
+<h3 id="同步分支（PC2上面操作）"><a href="#同步分支（PC2上面操作）" class="headerlink" title="同步分支（PC2上面操作）"></a>同步分支（PC2上面操作）</h3><p>此时在PC2上执行以下操作：</p>
+<p>git clone -b 仓库名 仓库地址；<br>在clone下来的仓库文件夹中安装和配置hexo环境，依次调用命令：cnpm install hexo、cnpm install、cnpm install hexo-deployer-git；（不需要hexo init）<br>此时通过命令hexo g、hexo s即可在本地开启同步下来的博客静态页面，并通过 <a href="http://localhost:4000/" target="_blank" rel="noopener">http://localhost:4000/</a> 访问。</p>
+<h3 id="发布博文（PC1或者PC2）"><a href="#发布博文（PC1或者PC2）" class="headerlink" title="发布博文（PC1或者PC2）"></a>发布博文（PC1或者PC2）</h3><p>后续不管是PC1还是PC2，如果修改了主题或者新增了博文，按照以下步骤即可：<br>git add . 暂存修改文件；<br>git commit -m “修改说明” 提交修改；<br>git push origin hexo 将新增博文原文件推送至hexo分支；<br>hexo g -d 将博文静态页面发布至maser分支。</p>
+<p>原文链接：<a href="https://blog.csdn.net/Yongzili/article/details/98535710" target="_blank" rel="noopener">https://blog.csdn.net/Yongzili/article/details/98535710</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/12/07/hexo%E5%A6%82%E4%BD%95%E8%B7%A8%E8%AE%BE%E5%A4%87%E5%90%8C%E6%AD%A5/" data-id="ck4bfe78x0002bmjic3v47xu0" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo%E5%90%8C%E6%AD%A5/" rel="tag">hexo同步</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-如何删除Git上的远程文件夹" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/12/07/%E5%A6%82%E4%BD%95%E5%88%A0%E9%99%A4Git%E4%B8%8A%E7%9A%84%E8%BF%9C%E7%A8%8B%E6%96%87%E4%BB%B6%E5%A4%B9/" class="article-date">
+  <time datetime="2019-12-06T16:01:52.000Z" itemprop="datePublished">2019-12-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/07/%E5%A6%82%E4%BD%95%E5%88%A0%E9%99%A4Git%E4%B8%8A%E7%9A%84%E8%BF%9C%E7%A8%8B%E6%96%87%E4%BB%B6%E5%A4%B9/">如何删除Git上的远程文件夹</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h2><p>这里以删除test文件夹为案例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git rm -r --cached test &#x2F;&#x2F;--cached不会把本地的test删除</span><br><span class="line">git commit -m &#39;delete test dir&#39;</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
+<h2 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h2><p>如果误提交的文件夹比较多，方法一也较繁琐<br>直接修改.gitignore文件,将不需要的文件过滤掉，然后执行命令:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git rm -r --cached .</span><br><span class="line">git add .</span><br><span class="line">git commit</span><br><span class="line">git push  -u origin master</span><br></pre></td></tr></table></figure>
+<p>原文链接：<a href="https://blog.csdn.net/cui130/article/details/84033966" target="_blank" rel="noopener">https://blog.csdn.net/cui130/article/details/84033966</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/12/07/%E5%A6%82%E4%BD%95%E5%88%A0%E9%99%A4Git%E4%B8%8A%E7%9A%84%E8%BF%9C%E7%A8%8B%E6%96%87%E4%BB%B6%E5%A4%B9/" data-id="ck4bfe7940005bmji1tzk9l3o" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-如何下载github某个文件夹" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/12/07/%E5%A6%82%E4%BD%95%E4%B8%8B%E8%BD%BDgithub%E6%9F%90%E4%B8%AA%E6%96%87%E4%BB%B6%E5%A4%B9/" class="article-date">
+  <time datetime="2019-12-06T16:01:31.000Z" itemprop="datePublished">2019-12-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/07/%E5%A6%82%E4%BD%95%E4%B8%8B%E8%BD%BDgithub%E6%9F%90%E4%B8%AA%E6%96%87%E4%BB%B6%E5%A4%B9/">如何下载github某个文件夹</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="第一步"><a href="#第一步" class="headerlink" title="第一步:"></a>第一步:</h2><p>复制gitHub repository的地址到剪切版<br><a href="https://github.com/CoreyMSchafer/code_snippets" target="_blank" rel="noopener">https://github.com/CoreyMSchafer/code_snippets</a></p>
+<h2 id="第二步"><a href="#第二步" class="headerlink" title="第二步:"></a>第二步:</h2><p>修改url地址，比如我要下载子目录13-Deployment-Linode，那么在后面追加地址/trunk/Django_Blog/13-Deployment-Linode，完整的地址如下：</p>
+<p><a href="https://github.com/CoreyMSchafer/code_snippets/trunk/Django_Blog/13-Deployment-Linode" target="_blank" rel="noopener">https://github.com/CoreyMSchafer/code_snippets/trunk/Django_Blog/13-Deployment-Linode</a></p>
+<h2 id="第三步"><a href="#第三步" class="headerlink" title="第三步:"></a>第三步:</h2><p>进入命令行输入｀svn checkout｀ 去下载文件夹内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">svn checkout https:&#x2F;&#x2F;github.com&#x2F;CoreyMSchafer&#x2F;code_snippets&#x2F;trunk&#x2F;Django_Blog&#x2F;13-Deployment-Linode</span><br></pre></td></tr></table></figure>
+<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><p><a href="https://help.github.com/articles/support-for-subversion-clients/" target="_blank" rel="noopener">https://help.github.com/articles/support-for-subversion-clients/</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/12/07/%E5%A6%82%E4%BD%95%E4%B8%8B%E8%BD%BDgithub%E6%9F%90%E4%B8%AA%E6%96%87%E4%BB%B6%E5%A4%B9/" data-id="ck4bfe7920004bmjifutoae4t" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github%E4%B8%8B%E8%BD%BD%E6%96%87%E4%BB%B6%E5%A4%B9/" rel="tag">github下载文件夹</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-git-add-A和-git-add-git-add-u的区别" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/12/07/git-add-A%E5%92%8C-git-add-git-add-u%E7%9A%84%E5%8C%BA%E5%88%AB/" class="article-date">
+  <time datetime="2019-12-06T16:01:11.000Z" itemprop="datePublished">2019-12-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/07/git-add-A%E5%92%8C-git-add-git-add-u%E7%9A%84%E5%8C%BA%E5%88%AB/">git add -A和 git add . git add -u的区别</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>git add -A和 git add . git add -u在功能上看似很相近，但还是存在一点差别</p>
+<p><strong>git add .</strong>：他会监控工作区的状态树，使用它会把工作时的所有变化提交到暂存区，包括文件内容修改(modified)以及新文件(new)，但不包括被删除的文件。</p>
+<p><strong>git add -u</strong>：他仅监控已经被add的文件（即tracked file），他会将被修改的文件提交到暂存区。add -u 不会提交新文件（untracked file）。（git add –update的缩写）</p>
+<p><strong>git add -A</strong>：是上面两个功能的合集（git add –all的缩写）</p>
+<p>下面是具体操作例子，方便更好的理解（Git version 1.x）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br><span class="line">echo Change me &gt; change-me</span><br><span class="line">echo Delete me &gt; delete-me</span><br><span class="line">git add change-me delete-me</span><br><span class="line">git commit -m initial</span><br><span class="line"> </span><br><span class="line">echo OK &gt;&gt; change-me</span><br><span class="line">rm delete-me</span><br><span class="line">echo Add me &gt; add-me</span><br><span class="line"> </span><br><span class="line">git status</span><br><span class="line"># Changed but not updated:</span><br><span class="line">#   modified:   change-me</span><br><span class="line">#   deleted:    delete-me</span><br><span class="line"># Untracked files:</span><br><span class="line">#   add-me</span><br><span class="line"> </span><br><span class="line">git add .</span><br><span class="line">git status</span><br><span class="line"> </span><br><span class="line"># Changes to be committed:</span><br><span class="line">#   new file:   add-me</span><br><span class="line">#   modified:   change-me</span><br><span class="line"># Changed but not updated:</span><br><span class="line">#   deleted:    delete-me</span><br><span class="line"> </span><br><span class="line">git reset</span><br><span class="line"> </span><br><span class="line">git add -u</span><br><span class="line">git status</span><br><span class="line"> </span><br><span class="line"># Changes to be committed:</span><br><span class="line">#   modified:   change-me</span><br><span class="line">#   deleted:    delete-me</span><br><span class="line"># Untracked files:</span><br><span class="line">#   add-me</span><br><span class="line"> </span><br><span class="line">git reset</span><br><span class="line"> </span><br><span class="line">git add -A</span><br><span class="line">git status</span><br><span class="line"> </span><br><span class="line"># Changes to be committed:</span><br><span class="line">#   new file:   add-me</span><br><span class="line">#   modified:   change-me</span><br><span class="line">#   deleted:    delete-me</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><p>· git add -A 提交所有变化</p>
+<p>· git add -u 提交被修改(modified)和被删除(deleted)文件，不包括新文件(new)</p>
+<p>· git add . 提交新文件(new)和被修改(modified)文件，不包括被删除(deleted)文件</p>
+<p>原文链接：<a href="https://blog.csdn.net/caseywei/article/details/90945295" target="_blank" rel="noopener">https://blog.csdn.net/caseywei/article/details/90945295</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/12/07/git-add-A%E5%92%8C-git-add-git-add-u%E7%9A%84%E5%8C%BA%E5%88%AB/" data-id="ck4bfe78q0000bmjidgwq62bj" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git-add/" rel="tag">git add</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git-add/" rel="tag">git add</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github%E4%B8%8B%E8%BD%BD%E6%96%87%E4%BB%B6%E5%A4%B9/" rel="tag">github下载文件夹</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo%E5%90%8C%E6%AD%A5/" rel="tag">hexo同步</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/12/07/hexo%E5%A6%82%E4%BD%95%E8%B7%A8%E8%AE%BE%E5%A4%87%E5%90%8C%E6%AD%A5/">hexo如何跨设备同步</a>
+          </li>
+        
+          <li>
+            <a href="/2019/12/07/%E5%A6%82%E4%BD%95%E5%88%A0%E9%99%A4Git%E4%B8%8A%E7%9A%84%E8%BF%9C%E7%A8%8B%E6%96%87%E4%BB%B6%E5%A4%B9/">如何删除Git上的远程文件夹</a>
+          </li>
+        
+          <li>
+            <a href="/2019/12/07/%E5%A6%82%E4%BD%95%E4%B8%8B%E8%BD%BDgithub%E6%9F%90%E4%B8%AA%E6%96%87%E4%BB%B6%E5%A4%B9/">如何下载github某个文件夹</a>
+          </li>
+        
+          <li>
+            <a href="/2019/12/07/git-add-A%E5%92%8C-git-add-git-add-u%E7%9A%84%E5%8C%BA%E5%88%AB/">git add -A和 git add . git add -u的区别</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 zhoudj<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
